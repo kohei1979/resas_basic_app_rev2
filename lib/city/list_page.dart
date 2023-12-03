@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:resas_project_app/city/detail_page.dart';
 
 class CityListPage extends StatefulWidget {
@@ -16,6 +17,16 @@ class _CityListPageState extends State<CityListPage> {
     // TODO: implement initState
     super.initState();
     _future = Future.delayed(const Duration(seconds: 3));
+    const host = 'opendata.resas-portal.go.jp';
+    const endpoint = 'api/v1/cities';
+    final headers = {
+      'X-API-KEY': Env.resasApiKey,
+    };
+    final response = http.get(
+      Uri.https(host, endpoint),
+      headers: headers,
+    );
+    print(response);
   }
 
   @override
