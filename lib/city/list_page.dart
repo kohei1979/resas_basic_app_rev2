@@ -9,6 +9,15 @@ class CityListPage extends StatefulWidget {
 }
 
 class _CityListPageState extends State<CityListPage> {
+  late Future<void> _future;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _future = Future.delayed(const Duration(seconds: 3));
+  }
+
   @override
   Widget build(BuildContext context) {
     // citiesという配列を定義
@@ -30,7 +39,7 @@ class _CityListPageState extends State<CityListPage> {
         title: const Text('市区町村一覧'),
       ),
       body: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 3)),
+        future: _future,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             //非同期処理が完了したことを示す状態
