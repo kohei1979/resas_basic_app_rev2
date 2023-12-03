@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:resas_project_app/city/detail_page.dart';
 
-class CityListPage extends StatelessWidget {
+class CityListPage extends StatefulWidget {
   const CityListPage({super.key});
 
+  @override
+  State<CityListPage> createState() => _CityListPageState();
+}
+
+class _CityListPageState extends State<CityListPage> {
   @override
   Widget build(BuildContext context) {
     // citiesという配列を定義
