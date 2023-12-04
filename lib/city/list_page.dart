@@ -34,20 +34,6 @@ class _CityListPageState extends State<CityListPage> {
 
   @override
   Widget build(BuildContext context) {
-    // citiesという配列を定義
-    final cities = [
-      '札幌市',
-      '仙台市',
-      'さいたま市',
-      '名古屋市',
-      '京都市',
-      '大阪市',
-      '神戸市',
-      '岡山市',
-      '広島市',
-      '福岡市',
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('市区町村一覧'),
@@ -87,7 +73,7 @@ class _CityListPageState extends State<CityListPage> {
           }
           //非同期処理が完了するまではインジケータを表示
           return const Center(
-            child: LinearProgressIndicator(),
+            child: CircularProgressIndicator(),
           );
         },
       ),
