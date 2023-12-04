@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:resas_project_app/city/detail_page.dart';
@@ -53,28 +55,30 @@ class _CityListPageState extends State<CityListPage> {
       body: FutureBuilder<String>(
         future: _citiesFuture,
         builder: (context, snapshot) {
-          print(snapshot.data);
           switch (snapshot.connectionState) {
             //非同期処理が完了したことを示す状態
             case ConnectionState.done:
-              //元々のListviewを移動
-              return ListView(
-                children: [
-                  //for文でcities配列の中身を一つずつ取り出し、ListTileで表示
-                  for (final city in cities)
-                    ListTile(
-                      title: Text(city),
-                      subtitle: const Text('政令指定都市'),
-                      trailing: const Icon(Icons.navigate_next),
-                      onTap: () {
-                        Navigator.of(context).push<void>(
-                          MaterialPageRoute(
-                            builder: (context) => CityDetailPage(city: city),
-                          ),
-                        );
-                      },
-                    ),
-                ],
+              final json = jsonDecode(snapshot.data!)['result'] as List;
+
+              // List の各要素はkey.value構造。key: String, valu: dynamicとして変換
+              final items = json.cast<Map<String, dynamic>>();
+
+              return ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  final item = items[index];
+                  return ListTile(
+                    title: Text(item['cityName'] as String),
+                    subtitle: const Text('政令指定都市'),
+                    trailing: const Icon(Icons.navigate_next),
+                    onTap: () {
+                      Navigator.of(context).push<void>(MaterialPageRoute(
+                          builder: (context) => CityDetailPage(
+                                city: item['cityName'] as String,
+                              )));
+                    },
+                  );
+                },
               );
 
             case ConnectionState.none:
