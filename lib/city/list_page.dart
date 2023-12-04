@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:resas_project_app/city/city.dart';
 import 'package:resas_project_app/city/detail_page.dart';
 import 'package:resas_project_app/env.dart';
 
@@ -51,19 +52,19 @@ class _CityListPageState extends State<CityListPage> {
 
               // List の各要素はkey.value構造。key: String, valu: dynamicとして変換
               final items = json.cast<Map<String, dynamic>>();
-
+              final cities = items.map(City.fromJson).toList();
               return ListView.builder(
-                itemCount: items.length,
+                itemCount: cities.length,
                 itemBuilder: (context, index) {
-                  final item = items[index];
+                  final city = cities[index];
                   return ListTile(
-                    title: Text(item['cityName'] as String),
+                    title: Text(city.cityName),
                     subtitle: const Text('政令指定都市'),
                     trailing: const Icon(Icons.navigate_next),
                     onTap: () {
                       Navigator.of(context).push<void>(MaterialPageRoute(
                           builder: (context) => CityDetailPage(
-                                city: item['cityName'] as String,
+                                city: city.cityName,
                               )));
                     },
                   );
