@@ -59,7 +59,7 @@ class _CityListPageState extends State<CityListPage> {
                   final city = cities[index];
                   return ListTile(
                     title: Text(city.cityName),
-                    subtitle: const Text('政令指定都市'),
+                    subtitle: Text(city.bigCityFlag),
                     trailing: const Icon(Icons.navigate_next),
                     onTap: () {
                       Navigator.of(context).push<void>(MaterialPageRoute(
