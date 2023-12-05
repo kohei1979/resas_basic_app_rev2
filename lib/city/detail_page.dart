@@ -60,7 +60,7 @@ class _CityDetailPageState extends State<CityDetailPage> {
                         title: Text('${item['year']}年',
                             style: const TextStyle(fontSize: 18)),
                         trailing: Text(
-                          '${item['value']},000Yen',
+                          '${(item['value'] as int) * 1000}Yen',
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       );
