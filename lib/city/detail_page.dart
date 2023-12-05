@@ -59,8 +59,10 @@ class _CityDetailPageState extends State<CityDetailPage> {
                       return ListTile(
                         title: Text('${item['year']}年',
                             style: const TextStyle(fontSize: 18)),
-                        trailing: Text('${item['value']}000Yen',
-                            style: const TextStyle(fontSize: 16)),
+                        trailing: Text(
+                          '${item['value']},000Yen',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                       );
                     });
               case ConnectionState.none:
