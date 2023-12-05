@@ -51,14 +51,14 @@ class _CityDetailPageState extends State<CityDetailPage> {
                     as Map<String, dynamic>;
                 final data = result['data'] as List;
                 final items = data.cast<Map<String, dynamic>>();
-                return ListView.builder(
+                return ListView.separated(
                     itemCount: items.length,
                     separatorBuilder: (context, index) => const Divider(),
                     itemBuilder: (context, index) {
                       final item = items[index];
                       return ListTile(
-                        title: Text(item['year'].toString()),
-                        trailing: Text('${item['value']}Yen'),
+                        title: Text('${item['year']}年'),
+                        trailing: Text('${item['value']}000Yen'),
                       );
                     });
               case ConnectionState.none:
