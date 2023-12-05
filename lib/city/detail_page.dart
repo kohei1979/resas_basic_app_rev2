@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:resas_project_app/city/annual_municipality_tax.dart';
+import 'package:resas_project_app/city/city.dart';
 import 'package:resas_project_app/env.dart';
 
 class CityDetailPage extends StatefulWidget {
   const CityDetailPage({super.key, required this.city});
 
-  final String city;
+  final City city;
 
   @override
   State<CityDetailPage> createState() => _CityDetailPageState();
@@ -28,8 +29,8 @@ class _CityDetailPageState extends State<CityDetailPage> {
     };
 
     final param = {
-      'prefCode': '13',
-      'cityCode': '13115',
+      'prefCode': widget.city.prefCode.toString(),
+      'cityCode': widget.city.cityCode,
     };
 
     _municipalityTaxesFuture = http
@@ -43,7 +44,7 @@ class _CityDetailPageState extends State<CityDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.city)),
+      appBar: AppBar(title: Text(widget.city.cityName)),
       body: FutureBuilder<String>(
           future: _municipalityTaxesFuture,
           builder: (context, snapshot) {
