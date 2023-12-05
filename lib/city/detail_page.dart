@@ -60,7 +60,7 @@ class _CityDetailPageState extends State<CityDetailPage> {
                         title: Text('${item['year']}年',
                             style: const TextStyle(fontSize: 18)),
                         trailing: Text(
-                          '${(item['value'] as int) * 1000}Yen',
+                          _formatTaxLabel(item['value'] as int),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       );
@@ -74,5 +74,9 @@ class _CityDetailPageState extends State<CityDetailPage> {
             );
           }),
     );
+  }
+
+  String _formatTaxLabel(int value) {
+    return '${value * 1000}円';
   }
 }
