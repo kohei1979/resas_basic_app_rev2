@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:resas_project_app/env.dart';
@@ -18,7 +20,7 @@ class _CityDetailPageState extends State<CityDetailPage> {
   void initState() {
     super.initState();
     const host = 'opendata.resas-portal.go.jp';
-    const endpoint = 'opendata.resas-portal.go.jp';
+    const endpoint = 'api/v1/municipality/taxes/perYear';
     final headers = {
       'X-API-Key': Env.resasApiKey,
     };
@@ -43,9 +45,21 @@ class _CityDetailPageState extends State<CityDetailPage> {
       body: FutureBuilder<String>(
           future: _municipalityTaxesFuture,
           builder: (context, snapshot) {
-            print(snapshot.data);
-            return Center(
-              child: Text('${widget.city}の詳細画面です'),
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                final result = jsonDecode(snapshot.data!)['result']
+                    as Map<String, dynamic>;
+                final data = result['data'] as List;
+                final items = data.cast<Map<String, dynamic>>();
+                return Center(
+                  child: Text(items.toString()),
+                );
+              case ConnectionState.none:
+              case ConnectionState.waiting:
+              case ConnectionState.active:
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
           }),
     );
