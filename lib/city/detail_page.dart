@@ -51,8 +51,9 @@ class _CityDetailPageState extends State<CityDetailPage> {
                     as Map<String, dynamic>;
                 final data = result['data'] as List;
                 final items = data.cast<Map<String, dynamic>>();
-                return ListView.builder(
+                return ListView.separated(
                     itemCount: items.length,
+                    separatorBuilder: (context, index) => const Divider(),
                     itemBuilder: (context, index) {
                       final item = items[index];
                       return ListTile(
