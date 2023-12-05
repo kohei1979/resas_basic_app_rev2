@@ -54,8 +54,11 @@ class _CityDetailPageState extends State<CityDetailPage> {
                     as Map<String, dynamic>;
                 final data = result['data'] as List;
                 final items = data.cast<Map<String, dynamic>>();
-                final taxes =
-                    items.map(AnnualMunicipalityTax.fromJson).toList();
+                final taxes = items
+                    .map(AnnualMunicipalityTax.fromJson)
+                    .toList()
+                    .reversed
+                    .toList();
                 return ListView.separated(
                     itemCount: taxes.length,
                     separatorBuilder: (context, index) => const Divider(),
