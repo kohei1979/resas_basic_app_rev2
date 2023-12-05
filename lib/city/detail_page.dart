@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:resas_project_app/env.dart';
 
 class CityDetailPage extends StatefulWidget {
@@ -77,6 +78,7 @@ class _CityDetailPageState extends State<CityDetailPage> {
   }
 
   String _formatTaxLabel(int value) {
-    return '${value * 1000}円';
+    final formatted = NumberFormat('#,###').format(value * 1000);
+    return '$formatted円';
   }
 }
